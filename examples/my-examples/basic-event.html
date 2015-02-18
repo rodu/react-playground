@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv='Content-type' content='text/html; charset=utf-8'>
+    <title>Basic Example</title>
+    <link rel="stylesheet" href="../shared/css/base.css" />
+  </head>
+  <body>
+    <h1>Basic Example</h1>
+    <div id="container"></div>
+    <h4>Example Details</h4>
+    <p>This is written in vanilla JavaScript (without JSX) and transformed in the browser.<p>
+    <p>
+      Learn more about React at
+      <a href="http://facebook.github.io/react" target="_blank">facebook.github.io/react</a>.
+    </p>
+    <script src="../shared/thirdparty/es5-shim.min.js"></script>
+    <script src="../shared/thirdparty/es5-sham.min.js"></script>
+    <script src="../shared/thirdparty/console-polyfill.js"></script>
+    <script src="../../build/react.js"></script>
+    <script src="../../build/JSXTransformer.js"></script>
+    <script type="text/jsx">
+      var BasicExample = React.createClass({
+        render: function() {
+          'use strict'; // this is important!
+          var clickHandler = function clickHandler(event){
+                console.log(event);
+            };
+
+          return (
+              /* Notice the absence of quotes here, if put in React will complain
+                that it was expecting a function not a string... */
+            <div onClick={clickHandler}>
+              Try clicking this div and look in the console...
+            </div>
+          );
+        }
+      });
+
+      React.render(
+          <BasicExample name="Robby">Divider test</BasicExample>,
+          document.getElementById('container')
+        );
+
+    </script>
+  </body>
+</html>
