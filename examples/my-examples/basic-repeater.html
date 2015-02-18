@@ -20,20 +20,15 @@
     <script src="../../build/react.js"></script>
     <script src="../../build/JSXTransformer.js"></script>
     <script type="text/jsx">
-      var Repeater = React.createClass({
+      var Repeater = React.createElement({
         render: function () {
           var
             children = this.props.children,
             repeater = function repeater(){
-
+              return React.createElement('li');
             };
-          return (
-            <li>
-              {children.text}
-              {children.data}
 
-            </li>
-          );
+          return repeater({this.props.data});
         }
       });
 
@@ -52,7 +47,7 @@
               {this.props.children}
 
               <ul>
-                  <Repeater>{{
+                  <Repeater data="{[1, 2, 3]}">{{
                     data: [1, 2, 3],
                     tag: 'li',
                     text: this.props.name
