@@ -22,9 +22,16 @@
     <script type="text/jsx">
       var Repeater = React.createClass({
         render: function () {
+          var
+            children = this.props.children,
+            repeater = function repeater(){
+
+            };
           return (
             <li>
-              {this.props.text}
+              {children.text}
+              {children.data}
+
             </li>
           );
         }
@@ -45,11 +52,11 @@
               {this.props.children}
 
               <ul>
-                  <Repeater
-                    tag="li"
-                    attrs="className='hello'"
-                    text="{this.props.name}"
-                  />
+                  <Repeater>{{
+                    data: [1, 2, 3],
+                    tag: 'li',
+                    text: this.props.name
+                  }}</Repeater>
               </ul>
 
             </div>
@@ -58,9 +65,9 @@
       });
 
       React.render(
-          <BasicExample name="Robby">Divider test</BasicExample>,
-          document.getElementById('container')
-        );
+        <BasicExample name="Robby">Divider test</BasicExample>,
+        document.getElementById('container')
+      );
 
     </script>
   </body>
