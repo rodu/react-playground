@@ -45,7 +45,15 @@
                 // The following writes list items for as many as range() param
                 range(10).map(function(el, i){
                   return <li>{self.props.name} {i}</li>
-                })
+                });
+
+                // Now the question becomes: Should we really be doing something
+                // like this?
+                // Or we will get (probably there already is) some component
+                // like repeaters in Angular?
+                // Something like:
+                //   <repeat each='10'><li>...bla</li></repeat>
+                // ?
               }</ul>
 
             </div>
