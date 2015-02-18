@@ -22,16 +22,28 @@
     <script type="text/jsx">
       var BasicExample = React.createClass({
         render: function() {
+          'use strict'; // this is important!
           var
-            self = this,
-            TIMES = 10;
-            SEP = ',';
+            self = this, // using a ; here by mistake would make range a global,
+                         // unless we set the function to 'use strict'.
+                         // Not React nor Sublime are warning me about that!
+            range = function range(times){
+              return Array(times).join(',').split(',');
+            };
+
           return (
             <div className="divider">
+
+              // Reads the text content of the node BasicExample
               {this.props.children}
 
               <ul>{
-                Array(TIMES).join(SEP).split(SEP).map(function(el, i){
+                // Here we can see how easy it can be in React to use native
+                // JavaScript logic in the JSX template. This is great although
+                // I am wondering how this is going to behave with respect to
+                // test coverage... Not there yet...
+                // The following writes list items for as many as range() param
+                range(10).map(function(el, i){
                   return <li>{self.props.name} {i}</li>
                 })
               }</ul>
