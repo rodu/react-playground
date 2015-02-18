@@ -20,50 +20,47 @@
     <script src="../../build/react.js"></script>
     <script src="../../build/JSXTransformer.js"></script>
     <script type="text/jsx">
-      var Repeater = React.createElement({
-        render: function () {
-          var
-            children = this.props.children,
-            repeater = function repeater(){
-              return React.createElement('li');
-            };
+      (function wrapper(React){
+        'use strict'; // Avoids accidental globals not validated in the JSX
 
-          return repeater({this.props.data});
-        }
-      });
+        // This is a very basic repeater component, which could be extended
+        // to accomplish more complex work
+        var Repeater = React.createClass({
+          makeItems: function makeItems(data){
+            return (data || []).map(function mapFn(el, i){
+              return React.DOM.li({key: i}, el);
+            });
+          },
 
-      var BasicExample = React.createClass({
-        render: function() {
-          'use strict'; // this is important!
-          var
-            self = this,
-            range = function range(times){
-              return Array(times).join(',').split(',');
-            };
+          render: function () {
+            return React.DOM.ul(null, this.makeItems(this.props.data));
+          }
+        });
 
-          return (
-            <div className="divider">
+        var BasicExample = React.createClass({
+          render: function() {
+            var
+              self = this,
+              data = [1, 2, 3]; // This data may come from somewhere....
 
-              {this.props.children}
+            return (
+              <div className="divider">
 
-              <ul>
-                  <Repeater data="{[1, 2, 3]}">{{
-                    data: [1, 2, 3],
-                    tag: 'li',
-                    text: this.props.name
-                  }}</Repeater>
-              </ul>
+                {this.props.children}
 
-            </div>
-          );
-        }
-      });
+                // Now we loop over the data with this reusable component
+                <Repeater data={data} />
 
-      React.render(
-        <BasicExample name="Robby">Divider test</BasicExample>,
-        document.getElementById('container')
-      );
+              </div>
+            );
+          }
+        });
 
+        React.render(
+          <BasicExample name="Robby">Divider test</BasicExample>,
+          document.getElementById('container')
+        );
+      }(React));
     </script>
   </body>
 </html>
