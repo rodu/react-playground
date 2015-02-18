@@ -20,41 +20,38 @@
     <script src="../../build/react.js"></script>
     <script src="../../build/JSXTransformer.js"></script>
     <script type="text/jsx">
+      var Repeater = React.createClass({
+        render: function () {
+          return (
+            <li>
+              {this.props.text}
+            </li>
+          );
+        }
+      });
+
       var BasicExample = React.createClass({
         render: function() {
           'use strict'; // this is important!
           var
-            self = this, // using a ; here by mistake would make range a global,
-                         // unless we set the function to 'use strict'.
-                         // Not React nor Sublime are warning me about that!
+            self = this,
             range = function range(times){
               return Array(times).join(',').split(',');
             };
 
-          // Here we can see how easy it can be in React to use native
-          // JavaScript logic in the JSX template. This is great although
-          // I am wondering how this is going to behave with respect to
-          // test coverage... Not there yet... The following writes list
-          // items for as many as range() param
           return (
             <div className="divider">
 
               {this.props.children}
 
-              <ul>{
+              <ul>
+                  <Repeater
+                    tag="li"
+                    attrs="className='hello'"
+                    text="{this.props.name}"
+                  />
 
-                range(10).map(function(el, i){
-                  return <li>{self.props.name} {i}</li>
-                })
-
-                // Now the question becomes: Should we really be doing something
-                // like this?
-                // Or we will get (probably there already is) some component
-                // like repeaters in Angular?
-                // Something like:
-                //   <repeat each='10'><li>...bla</li></repeat>
-                // ?
-              }</ul>
+              </ul>
 
             </div>
           );
