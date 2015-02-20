@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv='Content-type' content='text/html; charset=utf-8'>
+    <title>Basic Example</title>
+    <link rel="stylesheet" href="../shared/css/base.css" />
+  </head>
+  <body>
+    <h1>Lifecycle Example</h1>
+    <div id="container"></div>
+    <h4>Example Details</h4>
+    <p>In the browser console we can see the order in which the React framework callbacks will be executed during initialization time.<p>
+    <p>
+      Learn more about React at
+      <a href="http://facebook.github.io/react" target="_blank">facebook.github.io/react</a>.
+    </p>
+    <script src="../shared/thirdparty/es5-shim.min.js"></script>
+    <script src="../shared/thirdparty/es5-sham.min.js"></script>
+    <script src="../shared/thirdparty/console-polyfill.js"></script>
+    <script src="../../build/react.js"></script>
+    <script src="../../build/JSXTransformer.js"></script>
+    <script type="text/jsx">
+      var Lifecycle = React.createClass({
+        getDefaultProps: function getDefaultProps(){
+            console.log('getDefaultProps called', arguments);
+        },
+
+        getInitialState: function getInitialState(){
+          console.log('getInitialState called', arguments);
+          return {};
+        },
+
+        componentWillMount: function componentWillMount(){
+          console.log('componentWillMount called', arguments);
+        },
+
+        render: function() {
+          console.log('render called', arguments);
+          return <div></div>;
+        },
+
+        componentDidMount: function componentDidMount(){
+          console.log('componentDidMount called', arguments);
+        }
+      });
+
+      React.render(
+          <Lifecycle />,
+          document.getElementById('container')
+        );
+
+    </script>
+  </body>
+</html>

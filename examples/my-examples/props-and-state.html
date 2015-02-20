@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv='Content-type' content='text/html; charset=utf-8'>
+    <title>Basic Example</title>
+    <link rel="stylesheet" href="../shared/css/base.css" />
+  </head>
+  <body>
+    <h1>Props and State Example</h1>
+    <div id="container"></div>
+    <h4>Example Details</h4>
+    <p>In this example we see a few ways of using props (properties) and state.
+      Use the React inspector in Chrome to see what gets generated from the
+      given component class.<p>
+    <p>
+      Learn more about React at
+      <a href="http://facebook.github.io/react" target="_blank">facebook.github.io/react</a>.
+    </p>
+    <script src="../shared/thirdparty/es5-shim.min.js"></script>
+    <script src="../shared/thirdparty/es5-sham.min.js"></script>
+    <script src="../shared/thirdparty/console-polyfill.js"></script>
+    <script src="../../build/react.js"></script>
+    <script src="../../build/JSXTransformer.js"></script>
+    <script type="text/jsx">
+      var PropsAndState = React.createClass({
+        // If we don't set some properties via the JSX (HTML) attributes
+        // they will be found here
+        getDefaultProps: function (){
+          return {
+            name: 'Marco'
+          }
+        },
+
+        getInitialState: function (){
+          return {
+            checked: false,
+            defaultChecked: false
+          }
+        },
+
+        handleClick: function (){
+          //this.state.checked = true;
+          this.setState({
+            checked: !this.state.checked
+          });
+        },
+
+        render: function() {
+          var props = {
+            'data-name': 'Lucia'
+          };
+          return (
+            <div>
+              <div onClick={this.handleClick}>{this.props.name} (Click to check/uncheck)</div>
+
+              <div {...props}></div>
+
+              <input type="checkbox" checked={this.state.checked} />
+            </div>
+          );
+        }
+      });
+
+      React.render(
+          <PropsAndState>Divider test</PropsAndState>,
+          document.getElementById('container')
+        );
+
+    </script>
+  </body>
+</html>
